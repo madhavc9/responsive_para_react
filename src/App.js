@@ -1,25 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [text, setText] = useState('');
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const countWords = () => {
+    const trimmedText = text.trim();
+    if (trimmedText === '') {
+      return 0;
+    }
+    return trimmedText.split(/\s+/).length;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <h1 className='text-center'>Responsive Paragraph Word Counter</h1>
+      <textarea
+        className='form-control my-3 d-flex justify-content-center align-items-center border border-dark'
+        rows={10}
+        cols={50}
+        value={text}
+        onChange={handleTextChange}
+        placeholder="Enter your text here..."
+      />
+      <p>Word Count: {countWords()}</p>
     </div>
   );
 }
 
 export default App;
+
